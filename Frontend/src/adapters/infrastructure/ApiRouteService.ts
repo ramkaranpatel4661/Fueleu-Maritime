@@ -2,7 +2,7 @@ import axios from 'axios';
 import { RouteService, RouteFilters } from '../../core/ports/RouteService';
 import { Route } from '../../core/domain/entities/Route';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export class ApiRouteService implements RouteService {
   async getAll(filters?: RouteFilters): Promise<Route[]> {

@@ -2,7 +2,8 @@ import axios from 'axios';
 import { BankingService } from '../../core/ports/BankingService';
 import { BankingSummary, ApplyBankedResult } from '../../core/domain/entities/Banking';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 export class ApiBankingService implements BankingService {
   async getRecords(shipId: string, year: number): Promise<BankingSummary> {
