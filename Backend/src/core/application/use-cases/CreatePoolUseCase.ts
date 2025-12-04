@@ -55,7 +55,7 @@ export class CreatePoolUseCase {
     // Create pool entity for validation
     const poolId = uuidv4();
     const members = allocations.map(
-      (alloc, index) =>
+      (alloc) =>
         PoolMember.create({
           id: uuidv4(),
           poolId,

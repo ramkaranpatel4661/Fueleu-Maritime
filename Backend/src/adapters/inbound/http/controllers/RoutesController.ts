@@ -63,7 +63,7 @@ export class RoutesController {
     }
   }
 
-  async getComparison(req: Request, res: Response): Promise<void> {
+  async getComparison(_req: Request, res: Response): Promise<void> {
     try {
       const comparisons = await this.getComparisonUseCase.execute();
 

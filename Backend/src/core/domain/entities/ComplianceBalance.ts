@@ -25,7 +25,7 @@ export class ComplianceBalance {
   static calculateForRoute(
     actualIntensity: number,
     fuelConsumption: number,
-    year: number
+    _year: number
   ): number {
     const target = ComplianceBalance.getTargetIntensity(year);
     return ComplianceBalance.calculate(target, actualIntensity, fuelConsumption);

@@ -1,6 +1,5 @@
 import { RouteRepository } from '../../ports/RouteRepository';
 import { RouteComparison } from '../../domain/entities/RouteComparison';
-import { ComplianceBalance } from '../../domain/entities/ComplianceBalance';
 
 export class GetComparisonUseCase {
   private static readonly TARGET_INTENSITY = 89.3368; // gCO₂e/MJ
