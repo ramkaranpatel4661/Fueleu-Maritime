@@ -271,11 +271,13 @@ export default function BankingTab() {
               <button
                 onClick={handleApply}
                 disabled={
-                  loading ||
-                  !applyAmount ||
-                  parseFloat(applyAmount) <= 0 ||
-                  (bankingSummary && parseFloat(applyAmount) > bankingSummary.available)
-                }
+  loading ||
+  !applyAmount ||
+  parseFloat(applyAmount) <= 0 ||
+  (bankingSummary?.available !== undefined &&
+    parseFloat(applyAmount) > bankingSummary.available)
+}
+
                 className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-cyan-700 transform hover:scale-105 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
                 Apply
