@@ -3,7 +3,6 @@ import { ApiRouteService } from '../../../../adapters/infrastructure/ApiRouteSer
 import { ApiComplianceService } from '../../../../adapters/infrastructure/ApiComplianceService';
 import { ApiPoolService } from '../../../../adapters/infrastructure/ApiPoolService';
 import { Route } from '../../../../core/domain/entities/Route';
-import { AdjustedComplianceBalance } from '../../../../core/domain/entities/ComplianceBalance';
 import { CreatePoolResult } from '../../../../core/domain/entities/Pool';
 
 const routeService = new ApiRouteService();

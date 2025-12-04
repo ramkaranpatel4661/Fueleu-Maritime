@@ -20,6 +20,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
+    "types": ["jest", "node"],
     "paths": {
       "@core/*": ["src/core/*"],
       "@adapters/*": ["src/adapters/*"],
@@ -28,6 +29,6 @@
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+  "exclude": ["node_modules", "dist"]
 }
 
