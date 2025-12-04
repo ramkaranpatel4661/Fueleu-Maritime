@@ -31,7 +31,7 @@ export class ComplianceBalance {
     return ComplianceBalance.calculate(target, actualIntensity, fuelConsumption);
   }
 
-  static getTargetIntensity(_year: number): number {
+  static getTargetIntensity(year: number): number {
     // For 2025 and beyond, use 89.3368
     // For earlier years, you can adjust this logic
     return ComplianceBalance.TARGET_INTENSITY_2025;

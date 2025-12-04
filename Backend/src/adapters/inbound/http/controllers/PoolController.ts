@@ -9,25 +9,31 @@ export class PoolController {
       const { year, shipIds } = req.body;
 
       if (!year || !shipIds || !Array.isArray(shipIds) || shipIds.length === 0) {
-        res.status(400).json({
-          error: 'year and shipIds (array) are required',
-        });
+        const msg = 'year and shipIds (array) are required';
+        console.error('PoolController error:', msg);
+        res.status(400).json({ error: msg });
         return;
       }
 
-      const result = await this.createPoolUseCase.execute({
-        year,
-        shipIds,
-      });
+      try {
+        const result = await this.createPoolUseCase.execute({
+          year,
+          shipIds,
+        });
 
-      res.json({
-        poolId: result.poolId,
-        members: result.members,
-        totalCbAfter: result.totalCbAfter,
-        message: 'Pool created successfully',
-      });
+        res.json({
+          poolId: result.poolId,
+          members: result.members,
+          totalCbAfter: result.totalCbAfter,
+          message: 'Pool created successfully',
+        });
+      } catch (poolError) {
+        console.error('PoolController pool creation error:', poolError);
+        res.status(400).json({ error: (poolError as Error).message || String(poolError) });
+      }
     } catch (error) {
-      res.status(400).json({ error: (error as Error).message });
+      console.error('PoolController unexpected error:', error);
+      res.status(400).json({ error: (error as Error).message || String(error) });
     }
   }
 }

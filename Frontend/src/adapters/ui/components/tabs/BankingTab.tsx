@@ -83,35 +83,35 @@ export default function BankingTab() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-white">Banking</h2>
-          <p className="text-slate-400 mt-2">Manage compliance balance banking operations</p>
+          <h2 className="text-3xl font-bold text-gray-900">Banking</h2>
+          <p className="text-gray-500 mt-1">Manage compliance balance banking operations</p>
         </div>
       </div>
 
       {/* Ship Selection */}
-      <div className="bg-slate-800/60 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-slate-700/50">
-        <div className="flex items-center space-x-2 mb-5">
+      <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200/50">
+        <div className="flex items-center space-x-2 mb-4">
           <span className="text-xl">🔍</span>
-          <h3 className="text-lg font-bold text-white">Select Ship</h3>
+          <h3 className="text-lg font-semibold text-gray-900">Select Ship</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-semibold text-slate-300 mb-2">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
               Ship ID (Route ID)
             </label>
             <input
               type="text"
-              className="w-full border-2 border-slate-700 rounded-lg px-4 py-2.5 bg-slate-700/50 text-white focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30 transition-all placeholder-slate-500"
+              className="w-full border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all bg-white"
               value={shipId}
               onChange={(e) => setShipId(e.target.value)}
               placeholder="R001"
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-slate-300 mb-2">Year</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Year</label>
             <input
               type="number"
-              className="w-full border-2 border-slate-700 rounded-lg px-4 py-2.5 bg-slate-700/50 text-white focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30 transition-all placeholder-slate-500"
+              className="w-full border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all bg-white"
               value={year}
               onChange={(e) => setYear(parseInt(e.target.value) || 2024)}
             />
@@ -136,7 +136,7 @@ export default function BankingTab() {
       </div>
 
       {error && (
-        <div className="bg-red-950/40 border-l-4 border-red-500 text-red-300 p-4 rounded-lg shadow-md backdrop-blur">
+        <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-md">
           <div className="flex items-center">
             <span className="text-xl mr-2">⚠️</span>
             <div>
@@ -274,7 +274,7 @@ export default function BankingTab() {
                   loading ||
                   !applyAmount ||
                   parseFloat(applyAmount) <= 0 ||
-                  (!bankingSummary || parseFloat(applyAmount) > bankingSummary.available)
+                  (bankingSummary && parseFloat(applyAmount) > bankingSummary.available)
                 }
                 className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-cyan-700 transform hover:scale-105 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >

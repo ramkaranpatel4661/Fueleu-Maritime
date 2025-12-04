@@ -64,7 +64,7 @@ export default function CompareTab() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-white">Route Comparison</h2>
+          <h2 className="text-3xl font-bold text-gray-900">Route Comparison</h2>
           <p className="text-gray-500 mt-1">Compare routes against baseline and target intensity</p>
         </div>
         <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl px-6 py-3">
