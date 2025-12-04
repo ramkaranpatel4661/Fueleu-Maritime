@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ComplianceService } from '../../core/ports/ComplianceService';
 import { ComplianceBalance, AdjustedComplianceBalance } from '../../core/domain/entities/ComplianceBalance';
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 export class ApiComplianceService implements ComplianceService {
   async getCB(shipId: string, year: number): Promise<ComplianceBalance> {

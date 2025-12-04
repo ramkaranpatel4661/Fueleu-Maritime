@@ -2,7 +2,7 @@ import axios from 'axios';
 import { PoolService } from '../../core/ports/PoolService';
 import { CreatePoolRequest, CreatePoolResult } from '../../core/domain/entities/Pool';
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 export class ApiPoolService implements PoolService {
   async create(request: CreatePoolRequest): Promise<CreatePoolResult> {
