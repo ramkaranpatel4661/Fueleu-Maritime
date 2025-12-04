@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Route {
+  id                String   @id @default(cuid())
+  routeId           String   @unique
+  vesselType        String
+  fuelType          String
+  year              Int
+  ghgIntensity      Float    // gCO₂e/MJ
+  fuelConsumption   Float    // tonnes
+  distance          Float    // km
+  totalEmissions    Float    // tonnes CO₂e
+  isBaseline        Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([year])
+  @@index([vesselType])
+  @@index([fuelType])
+  @@map("routes")
+}
+
+model ShipCompliance {
+  id              String   @id @default(cuid())
+  shipId          String   // Can be routeId or separate ship identifier
+  year            Int
+  cbGco2eq        Float    // Compliance Balance in gCO₂e
+  adjustedCbGco2eq Float?  // Adjusted CB after pooling/banking
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([shipId, year])
+  @@index([shipId])
+  @@index([year])
+  @@map("ship_compliance")
+}
+
+model BankEntry {
+  id          String   @id @default(cuid())
+  shipId      String
+  year        Int
+  amountGco2eq Float   // Amount banked in gCO₂e
+  createdAt   DateTime @default(now())
+
+  @@index([shipId, year])
+  @@map("bank_entries")
+}
+
+model Pool {
+  id        String   @id @default(cuid())
+  year      Int
+  createdAt DateTime @default(now())
+  members   PoolMember[]
+
+  @@map("pools")
+}
+
+model PoolMember {
+  id          String  @id @default(cuid())
+  poolId      String
+  shipId      String
+  cbBefore    Float   // CB before pooling
+  cbAfter     Float   // CB after pooling
+  pool        Pool    @relation(fields: [poolId], references: [id], onDelete: Cascade)
+
+  @@index([poolId])
+  @@index([shipId])
+  @@map("pool_members")
+}
+
