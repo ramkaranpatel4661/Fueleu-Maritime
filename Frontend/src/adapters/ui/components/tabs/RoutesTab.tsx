@@ -192,7 +192,7 @@ export default function RoutesTab() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {routes.map((route, index) => (
+              {routes.map((route, _index) => (
                 <tr
                   key={route.id}
                   className={`transition-colors hover:bg-blue-50/50 ${
