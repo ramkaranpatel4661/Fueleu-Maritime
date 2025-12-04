@@ -110,29 +110,35 @@ export default function PoolingTab() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-900">Pooling</h2>
+      <h2 className="text-3xl font-bold text-white">Pooling</h2>
 
       {/* Year Selection */}
-      <div className="bg-white p-4 rounded-lg shadow">
-        <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
+      <div className="bg-slate-800/60 backdrop-blur-xl p-4 rounded-2xl shadow-xl border border-slate-700/50">
+        <label className="block text-sm font-semibold text-slate-300 mb-2">Year</label>
         <input
           type="number"
-          className="border border-gray-300 rounded-md px-3 py-2"
+          className="w-full border-2 border-slate-700 rounded-lg px-4 py-2.5 bg-slate-700/50 text-white focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30 transition-all placeholder-slate-500"
           value={year}
           onChange={(e) => setYear(parseInt(e.target.value) || 2024)}
         />
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-          Error: {error}
+        <div className="bg-red-950/40 border-l-4 border-red-500 text-red-300 p-4 rounded-lg shadow-md backdrop-blur">
+          <div className="flex items-center">
+            <span className="text-xl mr-2">⚠️</span>
+            <div>
+              <p className="font-semibold">Error</p>
+              <p className="text-sm">{error}</p>
+            </div>
+          </div>
         </div>
       )}
 
       {/* Ships List */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <div className="p-4 border-b border-gray-200">
-          <h3 className="text-lg font-medium text-gray-900">Select Ships for Pool</h3>
+      <div className="bg-slate-800/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-700/50 overflow-hidden">
+        <div className="p-4 border-b border-slate-700">
+          <h3 className="text-lg font-bold text-white">Select Ships for Pool</h3>
           {selectedShips.length > 0 && (
             <div className="mt-2">
               <p
