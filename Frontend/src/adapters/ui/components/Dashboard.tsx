@@ -9,42 +9,57 @@ type Tab = 'routes' | 'compare' | 'banking' | 'pooling';
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('routes');
 
-  const tabs: { id: Tab; label: string }[] = [
-    { id: 'routes', label: 'Routes' },
-    { id: 'compare', label: 'Compare' },
-    { id: 'banking', label: 'Banking' },
-    { id: 'pooling', label: 'Pooling' },
+  const tabs: { id: Tab; label: string; icon: string }[] = [
+    { id: 'routes', label: 'Routes', icon: '🚢' },
+    { id: 'compare', label: 'Compare', icon: '📊' },
+    { id: 'banking', label: 'Banking', icon: '💰' },
+    { id: 'pooling', label: 'Pooling', icon: '🤝' },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
       {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <h1 className="text-2xl font-bold text-gray-900">
-            FuelEU Maritime Compliance Platform
-          </h1>
+      <header className="bg-white/80 backdrop-blur-lg shadow-lg border-b border-gray-200/50 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="bg-gradient-to-r from-blue-600 to-cyan-600 p-2 rounded-lg shadow-md">
+                <span className="text-2xl">⚓</span>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  FuelEU Maritime
+                </h1>
+                <p className="text-sm text-gray-500 font-medium">Compliance Platform</p>
+              </div>
+            </div>
+            <div className="hidden md:flex items-center space-x-2 px-4 py-2 bg-green-50 rounded-lg border border-green-200">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-green-700">System Operational</span>
+            </div>
+          </div>
         </div>
       </header>
 
       {/* Tabs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div className="bg-white/60 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200/50 overflow-hidden">
+          <nav className="flex space-x-1 p-1 bg-gray-50/50">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`
-                  py-4 px-1 border-b-2 font-medium text-sm
+                  flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-lg font-medium text-sm transition-all duration-200
                   ${
                     activeTab === tab.id
-                      ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-md transform scale-105'
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }
                 `}
               >
-                {tab.label}
+                <span className="text-lg">{tab.icon}</span>
+                <span>{tab.label}</span>
               </button>
             ))}
           </nav>
