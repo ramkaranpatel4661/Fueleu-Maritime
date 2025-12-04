@@ -2,6 +2,7 @@ import { PoolRepository } from '../../ports/PoolRepository';
 import { ComplianceRepository } from '../../ports/ComplianceRepository';
 import { Pool } from '../../domain/entities/Pool';
 import { PoolMember } from '../../domain/entities/PoolMember';
+import { ComplianceBalance } from '../../domain/entities/ComplianceBalance';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface CreatePoolRequest {
