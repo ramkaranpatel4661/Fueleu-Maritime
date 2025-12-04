@@ -84,9 +84,17 @@ export class PrismaBankingRepository implements BankingRepository {
   }
 
   async getAvailableBanked(shipId: string, year: number): Promise<number> {
-    const banked = await this.getTotalBanked(shipId, year);
-    const applied = await this.getTotalApplied(shipId, year);
-    return Math.max(0, banked - applied);
+    const result = await prisma.bankEntry.aggregate({
+      where: {
+        shipId,
+        year,
+      },
+      _sum: {
+        amountGco2eq: true,
+      },
+    });
+
+    return result._sum.amountGco2eq || 0;
   }
 
   // Helper method to record application (creates negative entry)
