@@ -1,30 +1,6 @@
 # FuelEU Maritime Compliance Platform
 
 A full-stack web application for managing Fuel EU Maritime compliance, featuring route management, compliance balance calculations, banking, and pooling functionality.
-<p align="center">
-  <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055307.png" width="800" />
-</p>
-
-<p align="center">
-  <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055342.png" width="800" />
-</p>
-
-<p align="center">
-  <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055405.png" width="800" />
-</p>
-
-<p align="center">
-  <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055423.png" width="800" />
-</p>
-
-<p align="center">
-  <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055449.png" width="800" />
-</p>
-
-<br>
-
-
-# FuelEU Maritime Compliance Platform
 
 <p align="center">
   <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055307.png" width="800" />
@@ -50,15 +26,16 @@ A full-stack web application for managing Fuel EU Maritime compliance, featuring
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Setup & Installation](#setup--installation)
-- [Running the Application](#running-the-application)
-- [API Documentation](#api-documentation)
-- [Testing](#testing)
-- [Key Features](#key-features)
+- [Overview](#-overview)
+- [Architecture](#-architecture)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Setup & Installation](#-setup--installation)
+- [Running the Application](#-running-the-application)
+- [API Documentation](#-api-documentation)
+- [Testing](#-testing)
+- [Key Features](#-key-features)
+
 
 ## 🎯 Overview
 
