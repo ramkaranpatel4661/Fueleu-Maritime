@@ -17,14 +17,14 @@ export class CalculateCBUseCase {
       throw new Error(`Route not found for ship ${shipId} in year ${year}`);
     }
 
-    // 2️⃣ Get baseline route for same vessel + fuel
-    const baseline = await this.routeRepository.findBaseline(route.vesselType, route.fuelType);
-    if (!baseline) {
-      throw new Error(`Baseline not set for vesselType=${route.vesselType}, fuelType=${route.fuelType}`);
-    }
-
-    // 3️⃣ EU Calculation Formula: CB = (Actual - Baseline) × Fuel
-    const cbGco2eq = (route.ghgIntensity - baseline.ghgIntensity) * route.fuelConsumption;
+    // 2️⃣ Calculate CB using regulatory target intensity
+    // Formula: CB = (Target - Actual) × Energy in scope
+    // Energy in scope = fuelConsumption × 42,000 MJ/t
+    const cbGco2eq = ComplianceBalance.calculateForRoute(
+      route.ghgIntensity,
+      route.fuelConsumption,
+      year
+    );
 
     // 4️⃣ Load existing compliance record
     let compliance = await this.complianceRepository.findByShipAndYear(shipId, year);
