@@ -1,6 +1,22 @@
-# FuelEU Maritime Compliance Platform
+<p align="center">
+  <img src="https://img.shields.io/badge/FullStack-Developer-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/React-Frontend-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Node.js-Backend-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Architecture-Hexagonal-orange?style=for-the-badge" />
+</p>
 
-A full-stack web application for managing Fuel EU Maritime compliance, featuring route management, compliance balance calculations, banking, and pooling functionality.
+<h1 align="center">⚓ FuelEU Maritime Compliance Platform</h1>
+
+<p align="center">
+A full-stack FuelEU Maritime compliance platform implementing route emissions analysis,
+compliance balance calculations, banking workflows, pooling optimization,
+and comparison dashboards — built using clean Hexagonal Architecture.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square" />
+  <img src="https://img.shields.io/badge/TechStack-React%20%7C%20Node%20%7C%20Prisma%20%7C%20PostgreSQL-red?style=flat-square" />
+</p>
 
 ## 🚀 Live Demo
 
