@@ -16,7 +16,6 @@ export default function Dashboard() {
     { id: 'pooling', label: 'Pooling', icon: '🤝' },
   ];
 
-  const activeTabData = tabs.find((tab) => tab.id === activeTab);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 text-white">
