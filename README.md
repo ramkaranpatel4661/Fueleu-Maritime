@@ -2,6 +2,28 @@
 
 A full-stack web application for managing Fuel EU Maritime compliance, featuring route management, compliance balance calculations, banking, and pooling functionality.
 
+<p align="center">
+  <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055307.png" width="800" />
+</p>
+
+<p align="center">
+  <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055342.png" width="800" />
+</p>
+
+<p align="center">
+  <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055405.png" width="800" />
+</p>
+
+<p align="center">
+  <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055423.png" width="800" />
+</p>
+
+<p align="center">
+  <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055449.png" width="800" />
+</p>
+
+<br>
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
@@ -287,6 +309,25 @@ Open your browser and navigate to `http://localhost:3000`
 - Sum(adjustedCB) ≥ 0
 - Deficit ship cannot exit worse
 - Surplus ship cannot exit negative
+
+## 📸 Screenshots
+
+Here are some screenshots of the application with the new dark theme:
+
+**Routes Tab**
+![Routes Tab](Frontend/src/assets/Screenshot%202025-12-05%20055307.png)
+
+**Compare Tab**
+![Compare Tab](Frontend/src/assets/Screenshot%202025-12-05%20055342.png)
+
+**Banking Tab**
+![Banking Tab](Frontend/src/assets/Screenshot%202025-12-05%20055405.png)
+
+**Pooling Tab**
+![Pooling Tab](Frontend/src/assets/Screenshot%202025-12-05%20055423.png)
+
+**Dashboard**
+![Dashboard](Frontend/src/assets/Screenshot%202025-12-05%20055449.png)
 
 ## 🧪 Testing
 
