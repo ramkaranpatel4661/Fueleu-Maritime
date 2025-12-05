@@ -2,10 +2,12 @@ import { RouteRepository } from "../../core/ports/RouteRepository";
 import { Route } from "../../core/domain/entities/Route";
 import { prisma } from "../../infrastructure/db/prismaClient";
 
+// Derive precise type from Prisma model
+type PrismaRoute = NonNullable<
+  Awaited<ReturnType<typeof prisma.route.findFirst>>
+>;
+
 export class PrismaRouteRepository implements RouteRepository {
-  // ---------------------------------------------------------
-  // FIND ALL ROUTES WITH OPTIONAL FILTERS
-  // ---------------------------------------------------------
   async findAll(filters?: {
     vesselType?: string;
     fuelType?: string;
@@ -20,28 +22,19 @@ export class PrismaRouteRepository implements RouteRepository {
       orderBy: { routeId: "asc" },
     });
 
-    return routes.map((r) => Route.create({ ...r }));
+    return routes.map((r: PrismaRoute) => Route.create({ ...r }));
   }
 
-  // ---------------------------------------------------------
-  // FIND BY ID
-  // ---------------------------------------------------------
   async findById(id: string): Promise<Route | null> {
     const route = await prisma.route.findUnique({ where: { id } });
     return route ? Route.create({ ...route }) : null;
   }
 
-  // ---------------------------------------------------------
-  // FIND BY ROUTE ID
-  // ---------------------------------------------------------
   async findByRouteId(routeId: string): Promise<Route | null> {
     const route = await prisma.route.findUnique({ where: { routeId } });
     return route ? Route.create({ ...route }) : null;
   }
 
-  // ---------------------------------------------------------
-  // SAVE NEW ROUTE
-  // ---------------------------------------------------------
   async save(route: Route): Promise<Route> {
     const saved = await prisma.route.create({
       data: {
@@ -62,9 +55,6 @@ export class PrismaRouteRepository implements RouteRepository {
     return Route.create({ ...saved });
   }
 
-  // ---------------------------------------------------------
-  // UPDATE ROUTE
-  // ---------------------------------------------------------
   async update(route: Route): Promise<Route> {
     const updated = await prisma.route.update({
       where: { id: route.id },
@@ -77,9 +67,6 @@ export class PrismaRouteRepository implements RouteRepository {
     return Route.create({ ...updated });
   }
 
-  // ---------------------------------------------------------
-  // FIND BASELINE MATCHING SAME VESSEL TYPE + FUEL TYPE
-  // ---------------------------------------------------------
   async findBaseline(
     vesselType: string,
     fuelType: string
@@ -95,9 +82,6 @@ export class PrismaRouteRepository implements RouteRepository {
     return baseline ? Route.create({ ...baseline }) : null;
   }
 
-  // ---------------------------------------------------------
-  // SET BASELINE FOR A SPECIFIC ROUTE
-  // ---------------------------------------------------------
   async setBaseline(routeId: string): Promise<Route> {
     const current = await prisma.route.findUnique({ where: { routeId } });
 
@@ -105,7 +89,6 @@ export class PrismaRouteRepository implements RouteRepository {
       throw new Error(`Route ${routeId} not found`);
     }
 
-    // Remove baseline from all routes of SAME vessel + fuel
     await prisma.route.updateMany({
       where: {
         vesselType: current.vesselType,
@@ -115,7 +98,6 @@ export class PrismaRouteRepository implements RouteRepository {
       data: { isBaseline: false },
     });
 
-    // Set new baseline
     const updated = await prisma.route.update({
       where: { routeId },
       data: { isBaseline: true },
@@ -124,21 +106,21 @@ export class PrismaRouteRepository implements RouteRepository {
     return Route.create({ ...updated });
   }
 
-  // ---------------------------------------------------------
-  // FIND BASELINE + OTHER ROUTES FOR COMPARISON
-  // ---------------------------------------------------------
   async findAllForComparison(): Promise<{
     baseline: Route | null;
     others: Route[];
   }> {
     const all = await prisma.route.findMany();
 
-    const baseline = all.find((r) => r.isBaseline) || null;
-    const others = all.filter((r) => !r.isBaseline);
+    const baseline = all.find((r: PrismaRoute) => r.isBaseline) || null;
+
+    const others = all
+      .filter((r: PrismaRoute) => !r.isBaseline)
+      .map((o: PrismaRoute) => Route.create({ ...o }));
 
     return {
       baseline: baseline ? Route.create({ ...baseline }) : null,
-      others: others.map((o) => Route.create({ ...o })),
+      others,
     };
   }
 }

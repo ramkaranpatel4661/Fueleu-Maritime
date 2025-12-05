@@ -15,10 +15,10 @@ export interface RouteRepository {
 
   update(route: Route): Promise<Route>;
 
-  // Updated: Baseline based on vessel + fuel
+  // Baseline per vessel + fuel
   findBaseline(vesselType: string, fuelType: string): Promise<Route | null>;
 
-  // Kept for SetBaselineUseCase
+  // Used when user selects baseline manually
   setBaseline(routeId: string): Promise<Route>;
 
   findAllForComparison(): Promise<{ baseline: Route | null; others: Route[] }>;
