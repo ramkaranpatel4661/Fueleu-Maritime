@@ -2,6 +2,15 @@
 
 A full-stack web application for managing Fuel EU Maritime compliance, featuring route management, compliance balance calculations, banking, and pooling functionality.
 
+## 🚀 Live Demo
+
+### 🔵 Frontend (User Interface)
+https://fueleu-maritime-frontend.onrender.com
+
+### 🟢 Backend API (Health Check)
+https://fueleu-maritime-backend.onrender.com/health
+
+
 <p align="center">
   <img src="./Frontend/src/assets/Screenshot%202025-12-05%20055307.png" width="800" />
 </p>
@@ -311,24 +320,6 @@ Open your browser and navigate to `http://localhost:3000`
 - Deficit ship cannot exit worse
 - Surplus ship cannot exit negative
 
-## 📸 Screenshots
-
-Here are some screenshots of the application with the new dark theme:
-
-**Routes Tab**
-![Routes Tab](Frontend/src/assets/Screenshot%202025-12-05%20055307.png)
-
-**Compare Tab**
-![Compare Tab](Frontend/src/assets/Screenshot%202025-12-05%20055342.png)
-
-**Banking Tab**
-![Banking Tab](Frontend/src/assets/Screenshot%202025-12-05%20055405.png)
-
-**Pooling Tab**
-![Pooling Tab](Frontend/src/assets/Screenshot%202025-12-05%20055423.png)
-
-**Dashboard**
-![Dashboard](Frontend/src/assets/Screenshot%202025-12-05%20055449.png)
 
 ## 🧪 Testing
 
@@ -398,7 +389,6 @@ npm run preview
 
 - [AGENT_WORKFLOW.md](./AGENT_WORKFLOW.md) - AI agent usage documentation
 - [REFLECTION.md](./REFLECTION.md) - Reflection on AI agent usage
-- [STEP_BY_STEP_IMPLEMENTATION.md](./STEP_BY_STEP_IMPLEMENTATION.md) - Detailed implementation guide
 
 ## 🎯 Future Improvements
 
