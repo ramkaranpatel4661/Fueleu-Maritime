@@ -108,35 +108,33 @@ export default function PoolingTab() {
   const isValidPool = selectedShips.length >= 2 && poolSum >= 0;
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-900">Pooling</h2>
-
+    <div className="space-y-6 text-gray-100">
       {/* Year Selection */}
-      <div className="bg-white p-4 rounded-lg shadow">
-        <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
+      <div className="bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700/50">
+        <label className="block text-sm font-semibold text-gray-300 mb-2">Year</label>
         <input
           type="number"
-          className="border border-gray-300 rounded-md px-3 py-2"
+          className="border-2 border-slate-600 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all bg-slate-700 text-white"
           value={year}
           onChange={(e) => setYear(parseInt(e.target.value) || 2024)}
         />
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="bg-red-900/50 border-l-4 border-red-500 text-red-300 p-4 rounded-lg shadow-md">
           Error: {error}
         </div>
       )}
 
       {/* Ships List */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <div className="p-4 border-b border-gray-200">
-          <h3 className="text-lg font-medium text-gray-900">Select Ships for Pool</h3>
+      <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-lg border border-slate-700/50 overflow-hidden">
+        <div className="p-4 border-b border-slate-700">
+          <h3 className="text-lg font-medium text-gray-100">Select Ships for Pool</h3>
           {selectedShips.length > 0 && (
             <div className="mt-2">
               <p
                 className={`text-sm font-medium ${
-                  poolSum >= 0 ? 'text-green-600' : 'text-red-600'
+                  poolSum >= 0 ? 'text-green-400' : 'text-red-400'
                 }`}
               >
                 Pool Sum: {poolSum.toLocaleString(undefined, { maximumFractionDigits: 2 })} gCO₂e
@@ -146,28 +144,28 @@ export default function PoolingTab() {
           )}
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-slate-700">
+            <thead className="bg-slate-900/50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                   Select
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                   Ship ID
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                   Adjusted CB (gCO₂e)
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                   Status
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-slate-800 divide-y divide-slate-700">
               {ships.map((ship) => (
                 <tr
                   key={ship.shipId}
-                  className={ship.selected ? 'bg-blue-50' : ''}
+                  className={ship.selected ? 'bg-blue-900/50' : ''}
                   onClick={() => toggleShip(ship.shipId)}
                   style={{ cursor: 'pointer' }}
                 >
@@ -177,22 +175,22 @@ export default function PoolingTab() {
                       checked={ship.selected}
                       onChange={() => toggleShip(ship.shipId)}
                       onClick={(e) => e.stopPropagation()}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-600 rounded bg-slate-700"
                     />
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-100">
                     {ship.shipId}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <span className={ship.cb >= 0 ? 'text-green-600' : 'text-red-600'}>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <span className={ship.cb >= 0 ? 'text-green-400' : 'text-red-400'}>
                       {ship.cb.toLocaleString(undefined, { maximumFractionDigits: 2 })}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     {ship.cb >= 0 ? (
-                      <span className="text-green-600 font-medium">Surplus</span>
+                      <span className="text-green-400 font-medium">Surplus</span>
                     ) : (
-                      <span className="text-red-600 font-medium">Deficit</span>
+                      <span className="text-red-400 font-medium">Deficit</span>
                     )}
                   </td>
                 </tr>
@@ -200,16 +198,16 @@ export default function PoolingTab() {
             </tbody>
           </table>
         </div>
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-slate-700">
           <button
             onClick={handleCreatePool}
             disabled={loading || !isValidPool}
-            className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 disabled:bg-slate-600 disabled:cursor-not-allowed"
           >
             {loading ? 'Creating...' : 'Create Pool'}
           </button>
           {selectedShips.length > 0 && !isValidPool && (
-            <p className="text-sm text-red-600 mt-2">
+            <p className="text-sm text-red-400 mt-2">
               Pool is invalid. Sum must be ≥ 0 and at least 2 ships required.
             </p>
           )}
@@ -218,13 +216,13 @@ export default function PoolingTab() {
 
       {/* Pool Result */}
       {poolResult && (
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Pool Created Successfully</h3>
+        <div className="bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700/50">
+          <h3 className="text-lg font-medium text-gray-100 mb-4">Pool Created Successfully</h3>
           <div className="mb-4">
-            <p className="text-sm text-gray-600">
-              Pool ID: <span className="font-mono font-medium">{poolResult.poolId}</span>
+            <p className="text-sm text-gray-400">
+              Pool ID: <span className="font-mono font-medium text-gray-200">{poolResult.poolId}</span>
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-400">
               Total CB After: {poolResult.totalCbAfter.toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })}{' '}
@@ -232,41 +230,41 @@ export default function PoolingTab() {
             </p>
           </div>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-slate-700">
+              <thead className="bg-slate-900/50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                     Ship ID
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                     CB Before
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                     CB After
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                     Change
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-slate-800 divide-y divide-slate-700">
                 {poolResult.members.map((member) => {
                   const change = member.cbAfter - member.cbBefore;
                   return (
                     <tr key={member.shipId}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-100">
                         {member.shipId}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                         {member.cbBefore.toLocaleString(undefined, {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                         {member.cbAfter.toLocaleString(undefined, { maximumFractionDigits: 2 })}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        <span className={change >= 0 ? 'text-green-600' : 'text-red-600'}>
+                        <span className={change >= 0 ? 'text-green-400' : 'text-red-400'}>
                           {change >= 0 ? '+' : ''}
                           {change.toLocaleString(undefined, { maximumFractionDigits: 2 })} gCO₂e
                         </span>
@@ -282,4 +280,3 @@ export default function PoolingTab() {
     </div>
   );
 }
-

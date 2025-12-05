@@ -1,8 +1,11 @@
-import { RouteRepository } from '../../core/ports/RouteRepository';
-import { Route } from '../../core/domain/entities/Route';
-import { prisma } from '../../infrastructure/db/prismaClient';
+import { RouteRepository } from "../../core/ports/RouteRepository";
+import { Route } from "../../core/domain/entities/Route";
+import { prisma } from "../../infrastructure/db/prismaClient";
 
 export class PrismaRouteRepository implements RouteRepository {
+  // ---------------------------------------------------------
+  // FIND ALL ROUTES WITH OPTIONAL FILTERS
+  // ---------------------------------------------------------
   async findAll(filters?: {
     vesselType?: string;
     fuelType?: string;
@@ -14,67 +17,31 @@ export class PrismaRouteRepository implements RouteRepository {
         ...(filters?.fuelType && { fuelType: filters.fuelType }),
         ...(filters?.year && { year: filters.year }),
       },
-      orderBy: { routeId: 'asc' },
+      orderBy: { routeId: "asc" },
     });
 
-    return routes.map((r) =>
-      Route.create({
-        id: r.id,
-        routeId: r.routeId,
-        vesselType: r.vesselType,
-        fuelType: r.fuelType,
-        year: r.year,
-        ghgIntensity: r.ghgIntensity,
-        fuelConsumption: r.fuelConsumption,
-        distance: r.distance,
-        totalEmissions: r.totalEmissions,
-        isBaseline: r.isBaseline,
-        createdAt: r.createdAt,
-        updatedAt: r.updatedAt,
-      })
-    );
+    return routes.map((r) => Route.create({ ...r }));
   }
 
+  // ---------------------------------------------------------
+  // FIND BY ID
+  // ---------------------------------------------------------
   async findById(id: string): Promise<Route | null> {
     const route = await prisma.route.findUnique({ where: { id } });
-    if (!route) return null;
-
-    return Route.create({
-      id: route.id,
-      routeId: route.routeId,
-      vesselType: route.vesselType,
-      fuelType: route.fuelType,
-      year: route.year,
-      ghgIntensity: route.ghgIntensity,
-      fuelConsumption: route.fuelConsumption,
-      distance: route.distance,
-      totalEmissions: route.totalEmissions,
-      isBaseline: route.isBaseline,
-      createdAt: route.createdAt,
-      updatedAt: route.updatedAt,
-    });
+    return route ? Route.create({ ...route }) : null;
   }
 
+  // ---------------------------------------------------------
+  // FIND BY ROUTE ID
+  // ---------------------------------------------------------
   async findByRouteId(routeId: string): Promise<Route | null> {
     const route = await prisma.route.findUnique({ where: { routeId } });
-    if (!route) return null;
-
-    return Route.create({
-      id: route.id,
-      routeId: route.routeId,
-      vesselType: route.vesselType,
-      fuelType: route.fuelType,
-      year: route.year,
-      ghgIntensity: route.ghgIntensity,
-      fuelConsumption: route.fuelConsumption,
-      distance: route.distance,
-      totalEmissions: route.totalEmissions,
-      isBaseline: route.isBaseline,
-      createdAt: route.createdAt,
-      updatedAt: route.updatedAt,
-    });
+    return route ? Route.create({ ...route }) : null;
   }
 
+  // ---------------------------------------------------------
+  // SAVE NEW ROUTE
+  // ---------------------------------------------------------
   async save(route: Route): Promise<Route> {
     const saved = await prisma.route.create({
       data: {
@@ -92,22 +59,12 @@ export class PrismaRouteRepository implements RouteRepository {
       },
     });
 
-    return Route.create({
-      id: saved.id,
-      routeId: saved.routeId,
-      vesselType: saved.vesselType,
-      fuelType: saved.fuelType,
-      year: saved.year,
-      ghgIntensity: saved.ghgIntensity,
-      fuelConsumption: saved.fuelConsumption,
-      distance: saved.distance,
-      totalEmissions: saved.totalEmissions,
-      isBaseline: saved.isBaseline,
-      createdAt: saved.createdAt,
-      updatedAt: saved.updatedAt,
-    });
+    return Route.create({ ...saved });
   }
 
+  // ---------------------------------------------------------
+  // UPDATE ROUTE
+  // ---------------------------------------------------------
   async update(route: Route): Promise<Route> {
     const updated = await prisma.route.update({
       where: { id: route.id },
@@ -117,46 +74,44 @@ export class PrismaRouteRepository implements RouteRepository {
       },
     });
 
-    return Route.create({
-      id: updated.id,
-      routeId: updated.routeId,
-      vesselType: updated.vesselType,
-      fuelType: updated.fuelType,
-      year: updated.year,
-      ghgIntensity: updated.ghgIntensity,
-      fuelConsumption: updated.fuelConsumption,
-      distance: updated.distance,
-      totalEmissions: updated.totalEmissions,
-      isBaseline: updated.isBaseline,
-      createdAt: updated.createdAt,
-      updatedAt: updated.updatedAt,
-    });
+    return Route.create({ ...updated });
   }
 
-  async findBaseline(): Promise<Route | null> {
-    const route = await prisma.route.findFirst({ where: { isBaseline: true } });
-    if (!route) return null;
-
-    return Route.create({
-      id: route.id,
-      routeId: route.routeId,
-      vesselType: route.vesselType,
-      fuelType: route.fuelType,
-      year: route.year,
-      ghgIntensity: route.ghgIntensity,
-      fuelConsumption: route.fuelConsumption,
-      distance: route.distance,
-      totalEmissions: route.totalEmissions,
-      isBaseline: route.isBaseline,
-      createdAt: route.createdAt,
-      updatedAt: route.updatedAt,
+  // ---------------------------------------------------------
+  // FIND BASELINE MATCHING SAME VESSEL TYPE + FUEL TYPE
+  // ---------------------------------------------------------
+  async findBaseline(
+    vesselType: string,
+    fuelType: string
+  ): Promise<Route | null> {
+    const baseline = await prisma.route.findFirst({
+      where: {
+        isBaseline: true,
+        vesselType,
+        fuelType,
+      },
     });
+
+    return baseline ? Route.create({ ...baseline }) : null;
   }
 
+  // ---------------------------------------------------------
+  // SET BASELINE FOR A SPECIFIC ROUTE
+  // ---------------------------------------------------------
   async setBaseline(routeId: string): Promise<Route> {
-    // First unset all baselines
+    const current = await prisma.route.findUnique({ where: { routeId } });
+
+    if (!current) {
+      throw new Error(`Route ${routeId} not found`);
+    }
+
+    // Remove baseline from all routes of SAME vessel + fuel
     await prisma.route.updateMany({
-      where: { isBaseline: true },
+      where: {
+        vesselType: current.vesselType,
+        fuelType: current.fuelType,
+        isBaseline: true,
+      },
       data: { isBaseline: false },
     });
 
@@ -166,62 +121,24 @@ export class PrismaRouteRepository implements RouteRepository {
       data: { isBaseline: true },
     });
 
-    return Route.create({
-      id: updated.id,
-      routeId: updated.routeId,
-      vesselType: updated.vesselType,
-      fuelType: updated.fuelType,
-      year: updated.year,
-      ghgIntensity: updated.ghgIntensity,
-      fuelConsumption: updated.fuelConsumption,
-      distance: updated.distance,
-      totalEmissions: updated.totalEmissions,
-      isBaseline: updated.isBaseline,
-      createdAt: updated.createdAt,
-      updatedAt: updated.updatedAt,
-    });
+    return Route.create({ ...updated });
   }
 
-  async findAllForComparison(): Promise<{ baseline: Route | null; others: Route[] }> {
-    const allRoutes = await prisma.route.findMany();
-    const baselineData = allRoutes.find((r) => r.isBaseline);
-    const othersData = allRoutes.filter((r) => !r.isBaseline);
+  // ---------------------------------------------------------
+  // FIND BASELINE + OTHER ROUTES FOR COMPARISON
+  // ---------------------------------------------------------
+  async findAllForComparison(): Promise<{
+    baseline: Route | null;
+    others: Route[];
+  }> {
+    const all = await prisma.route.findMany();
 
-    const baseline = baselineData
-      ? Route.create({
-          id: baselineData.id,
-          routeId: baselineData.routeId,
-          vesselType: baselineData.vesselType,
-          fuelType: baselineData.fuelType,
-          year: baselineData.year,
-          ghgIntensity: baselineData.ghgIntensity,
-          fuelConsumption: baselineData.fuelConsumption,
-          distance: baselineData.distance,
-          totalEmissions: baselineData.totalEmissions,
-          isBaseline: baselineData.isBaseline,
-          createdAt: baselineData.createdAt,
-          updatedAt: baselineData.updatedAt,
-        })
-      : null;
+    const baseline = all.find((r) => r.isBaseline) || null;
+    const others = all.filter((r) => !r.isBaseline);
 
-    const others = othersData.map((r) =>
-      Route.create({
-        id: r.id,
-        routeId: r.routeId,
-        vesselType: r.vesselType,
-        fuelType: r.fuelType,
-        year: r.year,
-        ghgIntensity: r.ghgIntensity,
-        fuelConsumption: r.fuelConsumption,
-        distance: r.distance,
-        totalEmissions: r.totalEmissions,
-        isBaseline: r.isBaseline,
-        createdAt: r.createdAt,
-        updatedAt: r.updatedAt,
-      })
-    );
-
-    return { baseline, others };
+    return {
+      baseline: baseline ? Route.create({ ...baseline }) : null,
+      others: others.map((o) => Route.create({ ...o })),
+    };
   }
 }
-

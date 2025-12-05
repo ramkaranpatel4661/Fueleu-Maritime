@@ -79,39 +79,33 @@ export default function BankingTab() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-3xl font-bold text-gray-900">Banking</h2>
-          <p className="text-gray-500 mt-1">Manage compliance balance banking operations</p>
-        </div>
-      </div>
+    <div className="space-y-6 text-gray-100">
+
 
       {/* Ship Selection */}
-      <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200/50">
+      <div className="bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700/50">
         <div className="flex items-center space-x-2 mb-4">
           <span className="text-xl">🔍</span>
-          <h3 className="text-lg font-semibold text-gray-900">Select Ship</h3>
+          <h3 className="text-lg font-semibold text-gray-100">Select Ship</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-gray-300 mb-2">
               Ship ID (Route ID)
             </label>
             <input
               type="text"
-              className="w-full border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all bg-white"
+              className="w-full border-2 border-slate-600 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all bg-slate-700 text-white"
               value={shipId}
               onChange={(e) => setShipId(e.target.value)}
               placeholder="R001"
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Year</label>
+            <label className="block text-sm font-semibold text-gray-300 mb-2">Year</label>
             <input
               type="number"
-              className="w-full border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all bg-white"
+              className="w-full border-2 border-slate-600 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all bg-slate-700 text-white"
               value={year}
               onChange={(e) => setYear(parseInt(e.target.value) || 2024)}
             />
@@ -136,7 +130,7 @@ export default function BankingTab() {
       </div>
 
       {error && (
-        <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-md">
+        <div className="bg-red-900/50 border-l-4 border-red-500 text-red-300 p-4 rounded-lg shadow-md">
           <div className="flex items-center">
             <span className="text-xl mr-2">⚠️</span>
             <div>
@@ -150,8 +144,8 @@ export default function BankingTab() {
       {loading && !compliance && (
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-solid border-blue-600 border-r-transparent mb-4"></div>
-            <p className="text-gray-600 font-medium">Loading compliance data...</p>
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-solid border-blue-500 border-r-transparent mb-4"></div>
+            <p className="text-gray-400 font-medium">Loading compliance data...</p>
           </div>
         </div>
       )}
@@ -159,14 +153,14 @@ export default function BankingTab() {
       {/* Compliance Balance Cards */}
       {compliance && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200/50">
+          <div className="bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700/50">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-sm font-medium text-gray-600">Current CB</p>
+              <p className="text-sm font-medium text-gray-400">Current CB</p>
               <span className="text-2xl">{compliance.isSurplus ? '📈' : '📉'}</span>
             </div>
             <p
               className={`text-3xl font-bold ${
-                compliance.isSurplus ? 'text-green-600' : 'text-red-600'
+                compliance.isSurplus ? 'text-green-500' : 'text-red-500'
               }`}
             >
               {compliance.cbGco2eq.toLocaleString(undefined, {
@@ -178,8 +172,8 @@ export default function BankingTab() {
               <span
                 className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${
                   compliance.isSurplus
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-red-100 text-red-800'
+                    ? 'bg-green-900/50 text-green-300'
+                    : 'bg-red-900/50 text-red-300'
                 }`}
               >
                 {compliance.isSurplus ? '✅ Surplus' : '❌ Deficit'}
@@ -187,12 +181,12 @@ export default function BankingTab() {
             </div>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200/50">
+          <div className="bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700/50">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-sm font-medium text-gray-600">Adjusted CB</p>
+              <p className="text-sm font-medium text-gray-400">Adjusted CB</p>
               <span className="text-2xl">⚖️</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">
+            <p className="text-3xl font-bold text-gray-100">
               {(compliance.adjustedCbGco2eq ?? compliance.cbGco2eq).toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })}
@@ -201,12 +195,12 @@ export default function BankingTab() {
           </div>
 
           {bankingSummary && (
-            <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200/50">
+            <div className="bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700/50">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm font-medium text-gray-600">Available Banked</p>
+                <p className="text-sm font-medium text-gray-400">Available Banked</p>
                 <span className="text-2xl">💰</span>
               </div>
-              <p className="text-3xl font-bold text-blue-600">
+              <p className="text-3xl font-bold text-blue-500">
                 {bankingSummary.available.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}
@@ -219,18 +213,18 @@ export default function BankingTab() {
 
       {/* Banking Actions */}
       {compliance && (
-        <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200/50 space-y-6">
+        <div className="bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border-slate-700/50 space-y-6">
           <div className="flex items-center space-x-2">
             <span className="text-xl">⚡</span>
-            <h3 className="text-xl font-bold text-gray-900">Actions</h3>
+            <h3 className="text-xl font-bold text-gray-100">Actions</h3>
           </div>
 
           {/* Bank Surplus */}
-          <div className="border-t border-gray-200 pt-6">
+          <div className="border-t border-slate-700 pt-6">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <h4 className="font-semibold text-gray-900">Bank Surplus</h4>
-                <p className="text-sm text-gray-600 mt-1">
+                <h4 className="font-semibold text-gray-100">Bank Surplus</h4>
+                <p className="text-sm text-gray-400 mt-1">
                   Bank positive compliance balance for future use
                 </p>
               </div>
@@ -244,24 +238,24 @@ export default function BankingTab() {
               Bank Surplus
             </button>
             {!compliance.isSurplus && (
-              <p className="text-sm text-red-600 mt-2 font-medium">
+              <p className="text-sm text-red-400 mt-2 font-medium">
                 ⚠️ Cannot bank non-positive compliance balance
               </p>
             )}
           </div>
 
           {/* Apply Banked */}
-          <div className="border-t border-gray-200 pt-6">
+          <div className="border-t border-slate-700 pt-6">
             <div className="mb-3">
-              <h4 className="font-semibold text-gray-900">Apply Banked Amount</h4>
-              <p className="text-sm text-gray-600 mt-1">
+              <h4 className="font-semibold text-gray-100">Apply Banked Amount</h4>
+              <p className="text-sm text-gray-400 mt-1">
                 Apply banked surplus to current compliance balance
               </p>
             </div>
             <div className="flex gap-3">
               <input
                 type="number"
-                className="flex-1 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all bg-white"
+                className="flex-1 border-2 border-slate-600 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all bg-slate-700 text-white"
                 value={applyAmount}
                 onChange={(e) => setApplyAmount(e.target.value)}
                 placeholder="Amount to apply (gCO₂e)"
@@ -284,8 +278,8 @@ export default function BankingTab() {
               </button>
             </div>
             {bankingSummary && (
-              <p className="text-sm text-gray-500 mt-2">
-                Available: <span className="font-semibold text-blue-600">{bankingSummary.available.toLocaleString()}</span> gCO₂e
+              <p className="text-sm text-gray-400 mt-2">
+                Available: <span className="font-semibold text-blue-400">{bankingSummary.available.toLocaleString()}</span> gCO₂e
               </p>
             )}
           </div>
@@ -294,33 +288,33 @@ export default function BankingTab() {
 
       {/* Apply Result */}
       {applyResult && (
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 p-6 rounded-xl shadow-lg">
+        <div className="bg-gradient-to-r from-green-900/50 to-emerald-900/50 border-2 border-green-700 p-6 rounded-xl shadow-lg">
           <div className="flex items-center space-x-2 mb-4">
             <span className="text-2xl">✅</span>
-            <h3 className="text-xl font-bold text-gray-900">Application Successful</h3>
+            <h3 className="text-xl font-bold text-gray-100">Application Successful</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white p-4 rounded-lg shadow">
-              <p className="text-sm font-medium text-gray-600 mb-1">CB Before</p>
-              <p className="text-2xl font-bold text-gray-900">
+            <div className="bg-slate-800 p-4 rounded-lg shadow">
+              <p className="text-sm font-medium text-gray-400 mb-1">CB Before</p>
+              <p className="text-2xl font-bold text-gray-100">
                 {applyResult.cb_before.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}
               </p>
               <p className="text-xs text-gray-500">gCO₂e</p>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow">
-              <p className="text-sm font-medium text-gray-600 mb-1">Applied</p>
-              <p className="text-2xl font-bold text-blue-600">
+            <div className="bg-slate-800 p-4 rounded-lg shadow">
+              <p className="text-sm font-medium text-gray-400 mb-1">Applied</p>
+              <p className="text-2xl font-bold text-blue-400">
                 +{applyResult.applied.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}
               </p>
               <p className="text-xs text-gray-500">gCO₂e</p>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow">
-              <p className="text-sm font-medium text-gray-600 mb-1">CB After</p>
-              <p className="text-2xl font-bold text-green-600">
+            <div className="bg-slate-800 p-4 rounded-lg shadow">
+              <p className="text-sm font-medium text-gray-400 mb-1">CB After</p>
+              <p className="text-2xl font-bold text-green-400">
                 {applyResult.cb_after.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}
@@ -333,38 +327,38 @@ export default function BankingTab() {
 
       {/* Banking Summary */}
       {bankingSummary && (
-        <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200/50">
+        <div className="bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700/50">
           <div className="flex items-center space-x-2 mb-4">
             <span className="text-xl">📊</span>
-            <h3 className="text-xl font-bold text-gray-900">Banking Summary</h3>
+            <h3 className="text-xl font-bold text-gray-100">Banking Summary</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-blue-50 p-5 rounded-lg border border-blue-200">
-              <p className="text-sm font-medium text-blue-700 mb-1">Total Banked</p>
-              <p className="text-2xl font-bold text-blue-900">
+            <div className="bg-blue-900/50 p-5 rounded-lg border border-blue-700/50">
+              <p className="text-sm font-medium text-blue-300 mb-1">Total Banked</p>
+              <p className="text-2xl font-bold text-blue-100">
                 {bankingSummary.totalBanked.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}
               </p>
-              <p className="text-xs text-blue-600 mt-1">gCO₂e</p>
+              <p className="text-xs text-blue-400 mt-1">gCO₂e</p>
             </div>
-            <div className="bg-gray-50 p-5 rounded-lg border border-gray-200">
-              <p className="text-sm font-medium text-gray-700 mb-1">Total Applied</p>
-              <p className="text-2xl font-bold text-gray-900">
+            <div className="bg-slate-700 p-5 rounded-lg border border-slate-600">
+              <p className="text-sm font-medium text-gray-300 mb-1">Total Applied</p>
+              <p className="text-2xl font-bold text-gray-100">
                 {bankingSummary.totalApplied.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}
               </p>
-              <p className="text-xs text-gray-600 mt-1">gCO₂e</p>
+              <p className="text-xs text-gray-400 mt-1">gCO₂e</p>
             </div>
-            <div className="bg-green-50 p-5 rounded-lg border border-green-200">
-              <p className="text-sm font-medium text-green-700 mb-1">Available</p>
-              <p className="text-2xl font-bold text-green-900">
+            <div className="bg-green-900/50 p-5 rounded-lg border border-green-700/50">
+              <p className="text-sm font-medium text-green-300 mb-1">Available</p>
+              <p className="text-2xl font-bold text-green-100">
                 {bankingSummary.available.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}
               </p>
-              <p className="text-xs text-green-600 mt-1">gCO₂e</p>
+              <p className="text-xs text-green-400 mt-1">gCO₂e</p>
             </div>
           </div>
         </div>

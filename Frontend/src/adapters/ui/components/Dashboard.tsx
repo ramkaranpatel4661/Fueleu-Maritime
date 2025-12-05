@@ -16,10 +16,12 @@ export default function Dashboard() {
     { id: 'pooling', label: 'Pooling', icon: '🤝' },
   ];
 
+  const activeTabData = tabs.find((tab) => tab.id === activeTab);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 text-white">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-lg shadow-lg border-b border-gray-200/50 sticky top-0 z-50">
+      <header className="bg-slate-900/80 backdrop-blur-lg shadow-lg border-b border-slate-700/50 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -30,21 +32,22 @@ export default function Dashboard() {
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   FuelEU Maritime
                 </h1>
-                <p className="text-sm text-gray-500 font-medium">Compliance Platform</p>
+                <p className="text-sm text-gray-400 font-medium">Compliance Platform</p>
               </div>
             </div>
-            <div className="hidden md:flex items-center space-x-2 px-4 py-2 bg-green-50 rounded-lg border border-green-200">
+            <div className="hidden md:flex items-center space-x-2 px-4 py-2 bg-green-900/50 rounded-lg border border-green-700/50">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-green-700">System Operational</span>
+              <span className="text-sm font-medium text-green-300">System Operational</span>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Tabs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <div className="bg-white/60 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200/50 overflow-hidden">
-          <nav className="flex space-x-1 p-1 bg-gray-50/50">
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12">
+        {/* Tabs */}
+        <div className="bg-slate-800/60 backdrop-blur-sm rounded-xl shadow-lg border border-slate-700/50 overflow-hidden">
+          <nav className="flex space-x-1 p-1 bg-slate-900/50">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -54,7 +57,7 @@ export default function Dashboard() {
                   ${
                     activeTab === tab.id
                       ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-md transform scale-105'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                      : 'text-gray-300 hover:bg-slate-700 hover:text-white'
                   }
                 `}
               >
@@ -66,13 +69,25 @@ export default function Dashboard() {
         </div>
 
         {/* Tab Content */}
-        <div className="py-6">
-          {activeTab === 'routes' && <RoutesTab />}
-          {activeTab === 'compare' && <CompareTab />}
-          {activeTab === 'banking' && <BankingTab />}
-          {activeTab === 'pooling' && <PoolingTab />}
+        <div className="mt-8">
+          <div className="bg-slate-800/60 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-700/50">
+            {activeTab === 'routes' && <RoutesTab />}
+            {activeTab === 'compare' && <CompareTab />}
+            {activeTab === 'banking' && <BankingTab />}
+            {activeTab === 'pooling' && <PoolingTab />}
+          </div>
         </div>
-      </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-slate-900/80 backdrop-blur-lg border-t border-slate-700/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-sm text-gray-400">
+          <p>&copy; {new Date().getFullYear()} FuelEU Maritime Compliance. All Rights Reserved.</p>
+          <p className="mt-1">
+            <a href="#" className="hover:text-blue-500">Terms of Service</a> | <a href="#" className="hover:text-blue-500">Privacy Policy</a>
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

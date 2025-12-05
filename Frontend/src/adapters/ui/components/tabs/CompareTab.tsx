@@ -42,8 +42,8 @@ export default function CompareTab() {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-solid border-blue-600 border-r-transparent mb-4"></div>
-          <p className="text-gray-600 font-medium">Loading comparison data...</p>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-solid border-blue-500 border-r-transparent mb-4"></div>
+          <p className="text-gray-400 font-medium">Loading comparison data...</p>
         </div>
       </div>
     );
@@ -60,52 +60,40 @@ export default function CompareTab() {
   const totalCount = comparisons.length;
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-3xl font-bold text-gray-900">Route Comparison</h2>
-          <p className="text-gray-500 mt-1">Compare routes against baseline and target intensity</p>
-        </div>
-        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl px-6 py-3">
-          <div className="text-center">
-            <p className="text-xs text-gray-600 font-medium">Target Intensity</p>
-            <p className="text-xl font-bold text-blue-700">{TARGET_INTENSITY} gCO₂e/MJ</p>
-          </div>
-        </div>
-      </div>
+    <div className="space-y-6 text-gray-100">
+
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white/80 backdrop-blur-sm p-5 rounded-xl shadow-lg border border-gray-200/50">
+        <div className="bg-slate-800/80 backdrop-blur-sm p-5 rounded-xl shadow-lg border border-slate-700/50">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 font-medium">Total Routes</p>
-              <p className="text-3xl font-bold text-gray-900 mt-1">{totalCount}</p>
+              <p className="text-sm text-gray-400 font-medium">Total Routes</p>
+              <p className="text-3xl font-bold text-gray-100 mt-1">{totalCount}</p>
             </div>
-            <div className="bg-blue-100 p-3 rounded-lg">
+            <div className="bg-blue-900/50 p-3 rounded-lg">
               <span className="text-2xl">📊</span>
             </div>
           </div>
         </div>
-        <div className="bg-white/80 backdrop-blur-sm p-5 rounded-xl shadow-lg border border-gray-200/50">
+        <div className="bg-slate-800/80 backdrop-blur-sm p-5 rounded-xl shadow-lg border border-slate-700/50">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 font-medium">Compliant</p>
-              <p className="text-3xl font-bold text-green-600 mt-1">{compliantCount}</p>
+              <p className="text-sm text-gray-400 font-medium">Compliant</p>
+              <p className="text-3xl font-bold text-green-500 mt-1">{compliantCount}</p>
             </div>
-            <div className="bg-green-100 p-3 rounded-lg">
+            <div className="bg-green-900/50 p-3 rounded-lg">
               <span className="text-2xl">✅</span>
             </div>
           </div>
         </div>
-        <div className="bg-white/80 backdrop-blur-sm p-5 rounded-xl shadow-lg border border-gray-200/50">
+        <div className="bg-slate-800/80 backdrop-blur-sm p-5 rounded-xl shadow-lg border border-slate-700/50">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 font-medium">Non-Compliant</p>
-              <p className="text-3xl font-bold text-red-600 mt-1">{totalCount - compliantCount}</p>
+              <p className="text-sm text-gray-400 font-medium">Non-Compliant</p>
+              <p className="text-3xl font-bold text-red-500 mt-1">{totalCount - compliantCount}</p>
             </div>
-            <div className="bg-red-100 p-3 rounded-lg">
+            <div className="bg-red-900/50 p-3 rounded-lg">
               <span className="text-2xl">❌</span>
             </div>
           </div>
@@ -113,7 +101,7 @@ export default function CompareTab() {
       </div>
 
       {error && (
-        <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-md">
+        <div className="bg-red-900/50 border-l-4 border-red-500 text-red-300 p-4 rounded-lg shadow-md">
           <div className="flex items-center">
             <span className="text-xl mr-2">⚠️</span>
             <div>
@@ -125,33 +113,34 @@ export default function CompareTab() {
       )}
 
       {/* Chart */}
-      <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200/50">
+      <div className="bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700/50">
         <div className="flex items-center space-x-2 mb-6">
           <span className="text-xl">📈</span>
-          <h3 className="text-xl font-bold text-gray-900">GHG Intensity Comparison</h3>
+          <h3 className="text-xl font-bold text-gray-100">GHG Intensity Comparison</h3>
         </div>
         <ResponsiveContainer width="100%" height={450}>
           <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
             <XAxis
               dataKey="routeId"
-              tick={{ fill: '#6b7280', fontWeight: 600 }}
+              tick={{ fill: '#d1d5db', fontWeight: 600 }}
               axisLine={{ stroke: '#9ca3af' }}
             />
             <YAxis
-              label={{ value: 'gCO₂e/MJ', angle: -90, position: 'insideLeft', fill: '#6b7280' }}
-              tick={{ fill: '#6b7280' }}
+              label={{ value: 'gCO₂e/MJ', angle: -90, position: 'insideLeft', fill: '#d1d5db' }}
+              tick={{ fill: '#d1d5db' }}
               axisLine={{ stroke: '#9ca3af' }}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: 'white',
-                border: '1px solid #e5e7eb',
+                backgroundColor: '#1f2937',
+                border: '1px solid #475569',
                 borderRadius: '8px',
-                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                color: '#d1d5db'
               }}
+              labelStyle={{ color: '#ffffff' }}
             />
-            <Legend wrapperStyle={{ paddingTop: '20px' }} />
+            <Legend wrapperStyle={{ paddingTop: '20px', color: '#d1d5db' }} />
             <ReferenceLine
               y={TARGET_INTENSITY}
               stroke="#ef4444"
@@ -175,49 +164,49 @@ export default function CompareTab() {
       </div>
 
       {/* Comparison Table */}
-      <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200/50 overflow-hidden">
-        <div className="p-4 bg-gradient-to-r from-blue-600 to-cyan-600">
+      <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-lg border-slate-700/50 overflow-hidden">
+        <div className="p-4 bg-gradient-to-r from-blue-700 to-cyan-700">
           <h3 className="text-lg font-bold text-white">Detailed Comparison</h3>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-slate-700">
+            <thead className="bg-slate-900/50">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">
                   Route ID
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">
                   Baseline GHG
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">
                   Comparison GHG
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">
                   % Difference
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">
                   Status
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-slate-800 divide-y divide-slate-700">
               {comparisons.map((comp, index) => (
                 <tr
                   key={index}
-                  className="transition-colors hover:bg-blue-50/50"
+                  className="transition-colors hover:bg-slate-700/50"
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="text-sm font-bold text-gray-900">
+                    <span className="text-sm font-bold text-gray-100">
                       {comp.comparison.routeId}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="text-sm font-semibold text-blue-600">
+                    <span className="text-sm font-semibold text-blue-400">
                       {comp.baseline.ghgIntensity.toFixed(2)} gCO₂e/MJ
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="text-sm font-semibold text-gray-900">
+                    <span className="text-sm font-semibold text-gray-100">
                       {comp.comparison.ghgIntensity.toFixed(2)} gCO₂e/MJ
                     </span>
                   </td>
@@ -225,8 +214,8 @@ export default function CompareTab() {
                     <span
                       className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${
                         comp.percentDiff > 0
-                          ? 'bg-red-100 text-red-800'
-                          : 'bg-green-100 text-green-800'
+                          ? 'bg-red-900/50 text-red-300'
+                          : 'bg-green-900/50 text-green-300'
                       }`}
                     >
                       {comp.percentDiff > 0 ? '+' : ''}
@@ -235,11 +224,11 @@ export default function CompareTab() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {comp.compliant ? (
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-900/50 text-green-300">
                         ✅ Compliant
                       </span>
                     ) : (
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-red-900/50 text-red-300">
                         ❌ Non-Compliant
                       </span>
                     )}
@@ -253,3 +242,4 @@ export default function CompareTab() {
     </div>
   );
 }
+
